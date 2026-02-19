@@ -21,7 +21,7 @@ export function makeRunSearch({ httpClient }) {
    * @param {string} query - The search query
    * @returns {Promise<any>} The search results
    */
-  return async function runSearch(query) {
+  return async function executeSearch(query) {
     if (!query || typeof query !== 'string') {
       throw new Error('Query must be a non-empty string');
     }

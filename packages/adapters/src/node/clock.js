@@ -29,6 +29,6 @@ export function makeClock() {
      * @param {string | number | Date} [value] - Optional value to create Date from
      * @returns {Date}
      */
-    makeDate: (value) => new Date(value)
+    makeDate: (value) => value === undefined ? new Date() : new Date(value)
   };
 }
