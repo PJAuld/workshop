@@ -7,7 +7,7 @@
   "exports": {
     ".": "./src/index.js",
     "./ports": "./src/ports/index.js",
-    "./usecases": "./src/usecases/index.js"
+    "./services": "./src/services/index.js"
   },
   "scripts": {
     "build": "echo 'No build step required for JS-only package'",

@@ -1,5 +1,4 @@
 // @ts-check
-
 /**
  * Bun adapters - Platform-specific implementations for Bun runtime.
  * 

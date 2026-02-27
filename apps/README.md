@@ -1,13 +1,13 @@
 # Apps
 
-This directory contains **runnable applications** that compose core use cases with adapters.
+This directory contains **runnable applications** that compose core services with adapters.
 
 ## Purpose
 
 Apps are **composition roots** where:
 - Adapters are instantiated
 - Dependencies are wired together
-- Use cases are configured
+- Services are configured
 - The application is executed
 
 ## Structure
@@ -60,14 +60,14 @@ Apps should have a clear composition root:
 
 ```javascript
 // src/main.js
-import { makeRunSearch } from '@workshop/core/usecases';
+import { makeRunSearch } from '@workshop/core/services';
 import { makeFetchHttpClient } from '@workshop/adapters/node';
 
 async function main() {
   // 1. Create adapters
   const httpClient = makeFetchHttpClient();
 
-  // 2. Wire adapters to use cases
+  // 2. Wire adapters to services
   const runSearch = makeRunSearch({ httpClient });
 
   // 3. Execute
@@ -155,7 +155,7 @@ HTTP APIs and services. Use Node.js or Bun adapters.
 
 ## Best Practices
 
-1. **Keep composition root small**: Wire dependencies and delegate to use cases
+1. **Keep composition root small**: Wire dependencies and delegate to services
 2. **No business logic in apps**: All logic should be in `@workshop/core`
 3. **Choose the right adapters**: Node for CLI/servers, web for browsers
 4. **Handle errors at the boundary**: Apps are responsible for error presentation
@@ -177,7 +177,7 @@ node apps/cli-search/src/main.js "search query"
 ## Example: CLI Search App
 
 See `apps/cli-search/` for a minimal working example that demonstrates:
-- Importing use cases from `@workshop/core/usecases`
+- Importing services from `@workshop/core/services`
 - Creating adapters from `@workshop/adapters/node`
 - Wiring dependencies
 - Running the application

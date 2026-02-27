@@ -5,7 +5,7 @@ Example CLI application demonstrating layered architecture patterns.
 ## Purpose
 
 This is a **minimal working example** that shows how to:
-- Import use cases from `@workshop/core/usecases`
+- Import services from `@workshop/core/services`
 - Create adapters from `@workshop/adapters/node`
 - Wire dependencies in a composition root
 - Execute business logic
@@ -19,7 +19,7 @@ This is a **minimal working example** that shows how to:
 ├─────────────────────────────────┤
 │   @workshop/adapters/node       │  ← Platform adapters
 ├─────────────────────────────────┤
-│   @workshop/core/usecases       │  ← Business logic
+│   @workshop/core/services       │  ← Business logic
 └─────────────────────────────────┘
 ```
 
@@ -57,12 +57,12 @@ pnpm --filter @workshop/cli-search dev
 ### 1. Import Dependencies
 
 ```javascript
-import { makeRunSearch } from '@workshop/core/usecases';
+import { makeRunSearch } from '@workshop/core/services';
 import { makeFetchHttpClient, makeClock } from '@workshop/adapters/node';
 ```
 
 We import:
-- **Use cases** from core (business logic)
+- **Services** from core (business logic)
 - **Adapters** from the Node.js platform package
 
 ### 2. Create Adapters
@@ -74,13 +74,13 @@ const clock = makeClock();
 
 Adapters are the concrete implementations of ports defined in core.
 
-### 3. Wire to Use Cases
+### 3. Wire to Services
 
 ```javascript
 const runSearch = makeRunSearch({ httpClient });
 ```
 
-We inject the adapter into the use case factory. This is **dependency injection**.
+We inject the adapter into the service factory. This is **dependency injection**.
 
 ### 4. Execute
 
@@ -88,7 +88,7 @@ We inject the adapter into the use case factory. This is **dependency injection*
 const results = await runSearch(query);
 ```
 
-Call the configured use case with input. All the business logic is in core.
+Call the configured service with input. All the business logic is in core.
 
 ### 5. Present Results
 
@@ -111,10 +111,10 @@ Format and display results. Error handling happens at this boundary.
 
 ### Dependency Injection
 
-Use cases don't create their own dependencies. We inject them:
+Services don't create their own dependencies. We inject them:
 
 ```javascript
-// ❌ Bad: Use case creates its own dependencies
+// ❌ Bad: Service creates its own dependencies
 const runSearch = makeRunSearch();
 
 // ✅ Good: We inject dependencies
@@ -158,10 +158,10 @@ const config = {
 const httpClient = makeFetchHttpClient(config);
 ```
 
-### Add More Use Cases
+### Add More Services
 
 ```javascript
-import { makeRunSearch, makeAnalyzeResults } from '@workshop/core/usecases';
+import { makeRunSearch, makeAnalyzeResults } from '@workshop/core/services';
 
 const runSearch = makeRunSearch({ httpClient });
 const analyzeResults = makeAnalyzeResults({ logger });
@@ -173,7 +173,7 @@ const analysis = await analyzeResults(searchResults);
 ## Testing
 
 This app can be tested by:
-1. **Unit testing** use cases with mock adapters
+1. **Unit testing** services with mock adapters
 2. **Integration testing** the full app with real adapters
 3. **E2E testing** by running the CLI and checking output
 
@@ -188,7 +188,7 @@ const mockHttpClient = {
   })
 };
 
-// Test use case in isolation
+// Test service in isolation
 const runSearch = makeRunSearch({ httpClient: mockHttpClient });
 const results = await runSearch('test');
 

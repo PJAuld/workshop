@@ -1,8 +1,6 @@
 // @ts-check
-
 /**
  * Web/Browser adapters - Platform-specific implementations for browser runtime.
- * 
  * These adapters implement the ports defined in @workshop/core using Web APIs.
  * 
  * TODO: Add browser-specific adapter implementations.

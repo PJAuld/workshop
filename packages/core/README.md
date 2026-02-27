@@ -20,19 +20,19 @@ This package contains **platform-agnostic business logic** that is completely in
 - **Business logic**: Algorithms, calculations, validations, workflows
 - **Domain models**: Data structures and business rules
 - **Port definitions**: Interface contracts (via JSDoc types and assertion functions)
-- **Use case factories**: Functions that accept dependencies and return configured use cases
+- **Service factories**: Functions that accept dependencies and return configured services
 
 ## Structure
 
 ```
 src/
-├── index.js           # Main entry point (re-exports ports and usecases)
+├── index.js           # Main entry point (re-exports ports and services)
 ├── ports/             # Port definitions (interfaces for external dependencies)
 │   ├── index.js       # Barrel export
 │   └── httpClient.js  # HTTP client port with assertion function
-├── usecases/          # Business logic factories
+├── services/          # Business logic factories
 │   ├── index.js       # Barrel export
-│   └── runSearch.js   # Example use case factory
+│   └── runSearch.js   # Example service factory
 └── domain/            # Domain models (optional, not yet used)
 ```
 
@@ -47,8 +47,8 @@ import { assertHttpClient, makeRunSearch } from '@workshop/core';
 // Import only ports
 import { assertHttpClient } from '@workshop/core/ports';
 
-// Import only use cases
-import { makeRunSearch } from '@workshop/core/usecases';
+// Import only services
+import { makeRunSearch } from '@workshop/core/services';
 ```
 
 ## Patterns
@@ -80,24 +80,24 @@ export function assertMyPort(obj) {
 }
 ```
 
-### Use Case Factory Pattern
+### Service Factory Pattern
 
-Use cases are implemented as factory functions:
+Services are implemented as factory functions:
 
 ```javascript
 // @ts-check
 
 /**
- * Creates a use case function with injected dependencies.
+ * Creates a service function with injected dependencies.
  * 
  * @param {Object} deps - Dependencies
  * @param {MyPort} deps.myPort - Port implementation
- * @returns {(input: string) => Promise<string>} Configured use case
+ * @returns {(input: string) => Promise<string>} Configured service
  */
-export function makeMyUseCase({ myPort }) {
+export function makeMyService({ myPort }) {
   assertMyPort(myPort);
 
-  return async function myUseCase(input) {
+  return async function myService(input) {
     // Business logic here
     const result = await myPort.myMethod(input);
     return result.toUpperCase();
@@ -107,19 +107,19 @@ export function makeMyUseCase({ myPort }) {
 
 ### Usage in Apps
 
-Apps (composition roots) wire adapters to use cases:
+Apps (composition roots) wire adapters to services:
 
 ```javascript
-import { makeRunSearch } from '@workshop/core/usecases';
+import { makeRunSearch } from '@workshop/core/services';
 import { makeFetchHttpClient } from '@workshop/adapters/node';
 
 // Create adapter instance
 const httpClient = makeFetchHttpClient();
 
-// Inject adapter into use case factory
+// Inject adapter into service factory
 const runSearch = makeRunSearch({ httpClient });
 
-// Execute the use case
+// Execute the service
 const results = await runSearch('javascript');
 ```
 
@@ -136,17 +136,17 @@ const mockHttpClient = {
   })
 };
 
-// Inject mock into use case
+// Inject mock into service
 const runSearch = makeRunSearch({ httpClient: mockHttpClient });
 
-// Test the use case
+// Test the service
 const result = await runSearch('test');
 assert.deepEqual(result, { results: ['test'] });
 ```
 
 ## Contributing
 
-When adding new use cases or ports:
+When adding new services or ports:
 
 1. **Keep it pure**: No side effects, no platform dependencies
 2. **Use factories**: Accept dependencies as parameters

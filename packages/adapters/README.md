@@ -12,7 +12,7 @@ In the layered architecture:
 
 - **Core** defines ports (interfaces) and business logic
 - **Adapters** implement those ports using platform-specific APIs
-- **Apps** wire adapters to core use cases at composition roots
+- **Apps** wire adapters to core services at composition roots
 
 Adapters are the **boundary layer** between pure business logic and the outside world.
 
@@ -70,16 +70,16 @@ export function makeFetchHttpClient() {
 
 ### Usage in Apps
 
-Apps create adapter instances and inject them into use cases:
+Apps create adapter instances and inject them into services:
 
 ```javascript
-import { makeRunSearch } from '@workshop/core/usecases';
+import { makeRunSearch } from '@workshop/core/services';
 import { makeFetchHttpClient } from '@workshop/adapters/node';
 
 // Create adapter instance
 const httpClient = makeFetchHttpClient();
 
-// Inject into use case
+// Inject into service
 const runSearch = makeRunSearch({ httpClient });
 
 // Use it
@@ -148,16 +148,16 @@ export { makeMyAdapter } from './myAdapter.js';
 
 ### 4. Test with Core
 
-Verify the adapter works with core use cases:
+Verify the adapter works with core services:
 
 ```javascript
-import { makeMyUseCase } from '@workshop/core/usecases';
+import { makeMyService } from '@workshop/core/services';
 import { makeMyAdapter } from '@workshop/adapters/node';
 
 const myAdapter = makeMyAdapter();
-const myUseCase = makeMyUseCase({ myAdapter });
+const myService = makeMyService({ myAdapter });
 
-const result = await myUseCase('input');
+const result = await myService('input');
 console.log(result);
 ```
 

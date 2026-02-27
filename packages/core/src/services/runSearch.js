@@ -1,13 +1,10 @@
 // @ts-check
-
 import { assertHttpClient } from '../ports/httpClient.js';
 
 /**
- * Creates a search use case that fetches data from an API.
- * 
+ * Creates a search service that fetches data from an API.
  * This is a factory function that takes dependencies (ports) as parameters
- * and returns a configured use case function.
- * 
+ * and returns a configured service function.
  * @param {Object} deps - Dependencies (injected ports)
  * @param {import('../ports/httpClient.js').HttpClient} deps.httpClient - HTTP client implementation
  * @returns {(query: string) => Promise<any>} The configured search function
@@ -17,7 +14,6 @@ export function makeRunSearch({ httpClient }) {
 
   /**
    * Execute a search query.
-   * 
    * @param {string} query - The search query
    * @returns {Promise<any>} The search results
    */

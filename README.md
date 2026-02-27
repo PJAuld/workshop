@@ -28,11 +28,11 @@ The monorepo follows a **layered architecture** approach with clear separation o
 └─────────────────────────────────────┘
 ```
 
-**Core (`@workshop/core`)**: Contains pure business logic, domain models, and **port definitions**. No dependencies on platform APIs (Node.js, browser, etc.). Exports ports (interfaces) and use cases (business logic factories).
+**Core (`@workshop/core`)**: Contains pure business logic, domain models, and **port definitions**. No dependencies on platform APIs (Node.js, browser, etc.). Exports ports (interfaces) and services (business logic factories).
 
 **Adapters (`@workshop/adapters`)**: Platform-specific implementations of core ports. Exports adapters for different runtimes: `./node`, `./web`, `./bun`. These are the concrete implementations that talk to databases, HTTP, file systems, etc.
 
-**Apps**: Composition roots where adapters are wired to core use cases. Each app is a complete runnable application.
+**Apps**: Composition roots where adapters are wired to core services. Each app is a complete runnable application.
 
 **Experiments**: Throwaway spikes, proofs-of-concept, and learning exercises. Not meant to be production-ready.
 
@@ -88,8 +88,8 @@ pnpm list
 ### Importing from Core
 
 ```javascript
-// Import use cases
-import { makeRunSearch } from '@workshop/core/usecases';
+// Import services
+import { makeRunSearch } from '@workshop/core/services';
 
 // Import ports (interfaces/assertions)
 import { assertHttpClient } from '@workshop/core/ports';
@@ -125,7 +125,7 @@ import { makeFetchHttpClient } from '@workshop/adapters/bun';
    }
    ```
 3. Create `src/main.js` as your entry point
-4. Wire adapters to use cases in your composition root
+4. Wire adapters to services in your composition root
 5. Run with `node src/main.js` or add scripts to package.json
 
 ### Adding a New Experiment
@@ -156,7 +156,7 @@ import { makeFetchHttpClient } from '@workshop/adapters/bun';
 ## Examples
 
 See `apps/cli-search/` for a minimal example demonstrating:
-- Importing use cases from `@workshop/core`
+- Importing services from `@workshop/core`
 - Injecting adapters from `@workshop/adapters/node`
 - Running as a Node.js application
 

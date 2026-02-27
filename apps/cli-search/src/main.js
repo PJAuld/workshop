@@ -1,17 +1,14 @@
 #!/usr/bin/env node
 // @ts-check
-
 /**
  * CLI Search - Example application demonstrating layered architecture
- * 
  * This is a composition root where:
  * 1. Adapters are created (from @workshop/adapters/node)
- * 2. Use cases are wired with adapters (from @workshop/core/usecases)
+ * 2. Services are wired with adapters (from @workshop/core/services)
  * 3. The application logic is executed
  * 4. Results are presented to the user
  */
-
-import { makeRunSearch } from '@workshop/core/usecases';
+import { makeRunSearch } from '@workshop/core/services';
 import { makeFetchHttpClient, makeClock } from '@workshop/adapters/node';
 
 /**
@@ -34,10 +31,10 @@ async function main() {
   const httpClient = makeFetchHttpClient();
   const clock = makeClock();
 
-  // 2. Wire adapters to use cases (dependency injection)
+  // 2. Wire adapters to services (dependency injection)
   const runSearch = makeRunSearch({ httpClient });
 
-  // 3. Execute the use case
+  // 3. Execute the service
   console.log(`Searching for: "${query}"`);
   console.log(`Started at: ${clock.nowIso()}\n`);
 
