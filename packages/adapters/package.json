@@ -1,0 +1,24 @@
+{
+  "name": "@workshop/adapters",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Platform-specific adapter implementations for core ports",
+  "exports": {
+    "./node": "./src/node/index.js",
+    "./web": "./src/web/index.js",
+    "./bun": "./src/bun/index.js"
+  },
+  "scripts": {
+    "build": "echo 'No build step required for JS-only package'",
+    "dev": "echo 'No dev mode configured'"
+  },
+  "dependencies": {
+    "@workshop/core": "workspace:*"
+  },
+  "keywords": [
+    "adapters",
+    "ports-and-adapters",
+    "hexagonal-architecture"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@workshop/root",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "build:packages": "pnpm --filter './packages/*' run build",
+    "dev:packages": "pnpm --filter './packages/*' run dev",
+    "list": "pnpm list -r --depth -1"
+  },
+  "keywords": [
+    "monorepo",
+    "workspace",
+    "layered-architecture",
+    "experiments"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

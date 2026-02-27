@@ -1,0 +1,26 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .: {}
+
+  apps/cli-search:
+    dependencies:
+      '@workshop/adapters':
+        specifier: workspace:*
+        version: link:../../packages/adapters
+      '@workshop/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+
+  packages/adapters:
+    dependencies:
+      '@workshop/core':
+        specifier: workspace:*
+        version: link:../core
+
+  packages/core: {}

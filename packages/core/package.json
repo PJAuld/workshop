@@ -1,0 +1,22 @@
+{
+  "name": "@workshop/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Core business logic and port definitions - platform-agnostic",
+  "exports": {
+    ".": "./src/index.js",
+    "./ports": "./src/ports/index.js",
+    "./services": "./src/services/index.js"
+  },
+  "scripts": {
+    "build": "echo 'No build step required for JS-only package'",
+    "dev": "echo 'No dev mode configured'"
+  },
+  "keywords": [
+    "core",
+    "business-logic",
+    "ports",
+    "hexagonal-architecture"
+  ]
+}

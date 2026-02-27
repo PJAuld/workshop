@@ -1,0 +1,21 @@
+{
+  "name": "@workshop/cli-search",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Example CLI application demonstrating layered architecture",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "dev": "node --watch src/main.js"
+  },
+  "dependencies": {
+    "@workshop/core": "workspace:*",
+    "@workshop/adapters": "workspace:*"
+  },
+  "keywords": [
+    "cli",
+    "example",
+    "layered-architecture"
+  ]
+}
